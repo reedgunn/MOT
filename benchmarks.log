@@ -1,0 +1,10 @@
+
+Benchmarks complete for runs/detect/train-0/weights/best.pt on VisDrone.yaml at imgsz=640 (192.58s)
+Benchmarks legend:  - ✅ Success  - ❎ Export passed but validation failed  - ❌️ Export failed
+     Format Status❔  Size (MB) metrics/mAP50-95(B) Inference time (ms/im) FPS
+0  TensorRT       ❎       15.9                   -                      -   -
+
+Benchmarks complete for runs/detect/train-0/weights/best.pt on VisDrone.yaml at imgsz=640 (205.61s)
+Benchmarks legend:  - ✅ Success  - ❎ Export passed but validation failed  - ❌️ Export failed
+     Format Status❔  Size (MB) metrics/mAP50-95(B) Inference time (ms/im) FPS
+0  TensorRT       ❎       16.7                   -                      -   -

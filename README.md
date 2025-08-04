@@ -11,7 +11,8 @@ metrics:
 - HOTA
 - FPS
 
-fast object detector: YOLO (https://docs.ultralytics.com/modes/track/)
+fast object detector: YOLO
 
+https://docs.ultralytics.com/
 
 the best metric for real-time multi-object tracking models: HOTA
