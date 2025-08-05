@@ -160,7 +160,7 @@ if __name__ == "__main__":
     import time
 
     model = YOLO("runs/detect/train-0/weights/best.engine")
-
+  
     # Warmup
     for _ in range(10):
         model("datasets/VisDrone/images/val/0000026_03000_d_0000030.jpg", imgsz=640, device=1)
