@@ -1,11 +1,13 @@
-import cv2
 from typing import List
-from ultralytics.engine.results import Results
 from pathlib import Path
+
+from ultralytics.engine.results import Results
+import cv2
+
 
 def create_visualization_video(
     results_list: List[Results],
-    output_path: str = 'output.mp4',
+    output_path: str = "output.mp4",
     line_width: int = None,
     font_size: float = None,
     fps: int = 30

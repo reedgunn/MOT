@@ -1,22 +1,26 @@
-# https://docs.ultralytics.com/modes/train/#train-settings
+import os
+import shutil
+from pathlib import Path
 
 from ultralytics import YOLO
-from pathlib import Path
-import os
-from utils.visualize import create_visualization_video
-import shutil
 from ultralytics.utils.benchmarks import benchmark
+
+from utils.visualize import create_visualization_video
+
 
 RUNS_OUTPUT_PATH = Path("runs/detect")
 
 
-def train(
-    gpu_ids: list[int],
-    training_run_name: str = "0"
-) -> None:
+def train() -> None:
+    
+    # https://docs.ultralytics.com/modes/train/#train-settings
+    
+    model = "yolo12x.pt"
+    gpu_ids = list(range(8))
+    batch_size_per_gpu = 53
+    training_run_name = "0"
 
     num_gpus = len(gpu_ids)
-    batch_size_per_gpu = 53
     batch_size = num_gpus * batch_size_per_gpu
 
     training_run_name = f"train-{training_run_name}"
@@ -29,7 +33,7 @@ def train(
         shutil.rmtree(training_run_output_path)
 
     model = YOLO(
-        model="yolo12s.pt",
+        model=model,
         verbose=True
     )
 
@@ -138,42 +142,18 @@ def export_model(
 
 
 if __name__ == "__main__":
-    # train(
-    #     gpu_ids=list(range(1, 8))
-    # )
-    # eval()
-    # track(
-    #     data_path="/data/datasets/research-datasets/VisDrone/VisDrone2019-MOT-val/sequences/uav0000137_00458_v"
-    # )
-    # export_model()
-    # benchmark(
-    #     model="runs/detect/train-0/weights/best.pt",
-    #     data="VisDrone.yaml",
-    #     imgsz=640,
-    #     int8=True,
-    #     device=[1],
-    #     format="engine",
-    #     dynamic=True  # Enable dynamic batch sizing
-    # )
-    
-    from ultralytics import YOLO
-    import time
-
-    model = YOLO("runs/detect/train-0/weights/best.engine")
-  
-    # Warmup
-    for _ in range(10):
-        model("datasets/VisDrone/images/val/0000026_03000_d_0000030.jpg", imgsz=640, device=1)
-
-    # Measure inference time
-    times = []
-    for _ in range(100):  # Run multiple iterations for average
-        start = time.time()
-        model("datasets/VisDrone/images/val/0000026_03000_d_0000030.jpg", imgsz=640, device=1)
-        times.append(time.time() - start)
-
-    avg_time_ms = sum(times) / len(times) * 1000
-    fps = 1000 / avg_time_ms
-    print(f"Average inference time: {avg_time_ms:.2f} ms/im")
-    print(f"FPS: {fps:.2f}")
-    
+    train()
+    eval()
+    track(
+        data_path="/data/datasets/research-datasets/VisDrone/VisDrone2019-MOT-val/sequences/uav0000137_00458_v"
+    )
+    export_model()
+    benchmark(
+        model="runs/detect/train-0/weights/best.pt",
+        data="VisDrone.yaml",
+        imgsz=640,
+        int8=True,
+        device=[1],
+        format="engine",
+        dynamic=True  # Enable dynamic batch sizing
+    )
