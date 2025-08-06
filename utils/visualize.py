@@ -1,7 +1,7 @@
 from typing import List
 from pathlib import Path
 
-from ultralytics.engine.results import Results
+from ultralytics.yolo.engine.results import Results
 import cv2
 
 
